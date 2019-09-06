@@ -2,7 +2,14 @@
     "name": "SNMacros",
     "version": "1.0",
     "description": "Build an Extension!",
-    "permissions": ["https://*.google.com/", "activeTab", "declarativeContent", "storage"],
+    "permissions": ["https://*.service-now.com/*", "activeTab", "declarativeContent", "storage"],
+    "content_scripts": [
+      {
+        "matches": ["https://*.service-now.com/*"],
+        "run_at": "document_end",
+        "js": ["contentScript.js"]
+      }
+    ],
     "background": {
         "scripts": ["background.js"],
         "persistent": false
@@ -24,10 +31,10 @@
         "128": "images/get_started128.png"
     },
     "commands": {
-        "toggle-feature-foo": {
+        "create_new": {
           "suggested_key": {
-            "default": "Ctrl+Shift+Y",
-            "mac": "Command+Shift+Y"
+            "default": "Alt+Shift+N",
+            "mac": "Alt+Shift+N"
           },
           "description": "Toggle feature foo"
         },
@@ -48,4 +55,7 @@
         }
       },
     "manifest_version": 2
+
 }
+
+//gsft_id="c43a79e473051300bf6e7a2f1bf6a79b"
