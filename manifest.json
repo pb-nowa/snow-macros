@@ -2,11 +2,11 @@
     "name": "SNMacros",
     "version": "1.0",
     "description": "Build an Extension!",
-    "permissions": ["https://*.service-now.com/*", "activeTab", "declarativeContent", "storage"],
+    "permissions": ["https://*.service-now.com/*", "activeTab", "declarativeContent", "storage", "tabs"],
     "content_scripts": [
       {
         "matches": ["https://*.service-now.com/*"],
-        "run_at": "document_end",
+        "run_at": "document_idle",
         "js": ["contentScript.js"]
       }
     ],
@@ -31,31 +31,29 @@
         "128": "images/get_started128.png"
     },
     "commands": {
-        "create_new": {
+        "redirect_to_sys_user": {
           "suggested_key": {
-            "default": "Alt+Shift+N",
-            "mac": "Alt+Shift+N"
+            "default": "Alt+Shift+U",
+            "mac": "Alt+Shift+U"
           },
-          "description": "Toggle feature foo"
+          "description": "Redirect to sys_user"
         },
-        "_execute_browser_action": {
+        "redirect_to_sys_user_group": {
           "suggested_key": {
-            "windows": "Ctrl+Shift+Y",
-            "mac": "Command+Shift+Y",
-            "chromeos": "Ctrl+Shift+U",
-            "linux": "Ctrl+Shift+J"
-          }
+            "default": "Alt+Shift+G",
+            "mac": "Alt+Shift+G"
+          },
+          "description": "Redirect to sys_user_group"
         },
-        "_execute_page_action": {
+        "redirect_to_tables": {
           "suggested_key": {
-            "default": "Ctrl+Shift+E",
-            "windows": "Alt+Shift+P",
-            "mac": "Alt+Shift+P"
-          }
+            "default": "Alt+Shift+T",
+            "mac": "Alt+Shift+T"
+          },
+          "description": "Redirect to Tables"
         }
+
       },
     "manifest_version": 2
 
 }
-
-//gsft_id="c43a79e473051300bf6e7a2f1bf6a79b"
