@@ -1,13 +1,11 @@
 if (window.location.origin.includes("service-now")) {
     console.log("*******CONTENT SCRIPT IS RUN********")
-    console.log("DocumentState: " + document.readyState);
     
     function init() {
         const mainWindow = document.getElementById("gsft_main")
     }
     
     window.onload = () => {
-        console.log("DocumentState: " + document.readyState);
         init();
     }
 
@@ -19,14 +17,19 @@ if (window.location.origin.includes("service-now")) {
                         console.log("redirect_to_sys_user_group");
                     })
                     break;
+                case 78:
+                    chrome.runtime.sendMessage({action: "redirect_to_sys_user_list", key: "N"}, res => {
+                        console.log("redirect_to_sys_user_list");
+                    })
+                    break;
                 case 84:
                     chrome.runtime.sendMessage({action: "redirect_to_tables", key: "T"}, res => {
                         console.log("redirect_to_tables");
                     })
                     break;
                 case 85:
-                    chrome.runtime.sendMessage({action: "redirect_to_sys_user", key: "U"}, res => {
-                        console.log("redirect_to_sys_user");
+                    chrome.runtime.sendMessage({action: "redirect_to_new", key: "U"}, res => {
+                        console.log("redirect_to_new");
                     })
                     break;
                 default:
@@ -36,8 +39,8 @@ if (window.location.origin.includes("service-now")) {
         console.log(e.keyCode);
     });
     
-
-
+       // "%3Fsys_id%3D-1%26sys_is_list%3Dtrue%26sys_target%3D" + name +   "%26sysparm_checked_items%3D%26sysparm_fixed_query%3D%26sysparm_group_sort%3D%26sysparm_list_css%3D%26sysparm_query%3D%26sysparm_referring_url%3D" + name + "_list.do%26sysparm_target%3D%26sysparm_view%3D"
+    //   %3Fsys_id%3D-1%26sys_is_list%3Dtrue%26sys_target%3Dsys_user_group%26sysparm_checked_items%3D%26sysparm_fixed_query%3D%26sysparm_group_sort%3D%26sysparm_list_css%3D%26sysparm_query%3D%26sysparm_referring_url%3Dsys_user_group_list.do%26sysparm_target%3D%26sysparm_view%3D
     //ctrlKey
     //shiftKey
 }
@@ -46,8 +49,7 @@ if (window.location.origin.includes("service-now")) {
 
 //cmd: 91
 //opt: 18
-//ctl: 17
-//shift: 16
+
 
 //C: 67
 
