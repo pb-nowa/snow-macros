@@ -2,7 +2,7 @@
     "name": "SNMacros",
     "version": "1.0",
     "description": "Build an Extension!",
-    "permissions": ["https://*.service-now.com/*", "activeTab", "declarativeContent", "storage", "tabs"],
+    "permissions": ["https://*.service-now.com/*", "activeTab", "declarativeContent", "storage", "tabs", "downloads"],
     "content_scripts": [
       {
         "matches": ["https://*.service-now.com/*"],
@@ -10,6 +10,7 @@
         "js": ["contentScript.js"]
       }
     ],
+    "web_accessible_resources": ["shadowBreaker.js"],
     "background": {
         "scripts": ["background.js"],
         "persistent": false

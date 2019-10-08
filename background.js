@@ -33,7 +33,6 @@ function redirectToList() {
     chrome.tabs.update(tab.id, { url });
   })
   
-  
 }
 
 /*

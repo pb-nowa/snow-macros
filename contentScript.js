@@ -1,13 +1,17 @@
 if (window.location.origin.includes("service-now")) {
     console.log("*******CONTENT SCRIPT IS RUN********")
-    
+    const shadowBreakerScript = document.createElement('script');
+    shadowBreakerScript.src = chrome.extension.getURL('shadowBreaker.js');
+    (document.head ||  document.documentElement).appendChild(shadowBreakerScript);
+
+
+
     function init() {
-        const mainWindow = document.getElementById("gsft_main")
+        const mainWindow = document.getElementById("gsft_main");
+        console.log(mainWindow.shadowRoot);
     }
     
-    window.onload = () => {
-        init();
-    }
+    window.onload = init;
 
     document.addEventListener('keydown', e => {
         if (e.ctrlKey && e.shiftKey) {
