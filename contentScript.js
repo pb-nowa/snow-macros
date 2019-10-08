@@ -38,6 +38,11 @@ if (window.location.origin.includes("service-now")) {
                         console.log("redirect_to_new");
                     })
                     break;
+                case 87:
+                    chrome.runtime.sendMessage({action:"redirect_to_workspace", key: "W"}, res => {
+                        console.log("redirect_to_workspace");
+                    })
+                    break;
                 default:
                     break;
             }

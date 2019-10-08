@@ -35,6 +35,18 @@ function redirectToList() {
   
 }
 
+function redirectToWorkspace() {
+  chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
+    const tab = tabs[0]
+
+    //TODO fix 'name' split so that it grabs the table name from the url
+    const urlChunk = tab.url.split(/.com/)[0];
+    const  url = urlChunk + ".com/workspace";
+    
+    chrome.tabs.update(tab.id, { url });
+  })
+}
+
 /*
 old commands through chrome api
 
@@ -68,6 +80,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
     case "redirect_to_new":
       redirectToNew();
+      break;
+    case "redirect_to_workspace":
+      redirectToWorkspace();
       break;
     default:
       break;
