@@ -11,6 +11,10 @@ if (window.location.origin.includes("service-now")) {
         // console.log(mainWindow.shadowRoot);
         //main = document.getElementById('gsft_main').contentDocument.defaultView;
         //                                           .contentWindow
+
+        const button = document.getElementById('gsft_main').contentDocument.defaultView.document.getElementById("cog-wheel")
+        console.log(button);
+        button.click();
     }
     
     window.onload = init;
@@ -24,8 +28,8 @@ if (window.location.origin.includes("service-now")) {
                     })
                     break;
                 case 78:
-                    chrome.runtime.sendMessage({action: "redirect_to_sys_user_list", key: "N"}, res => {
-                        console.log("redirect_to_sys_user_list");
+                    chrome.runtime.sendMessage({action: "redirect_to_new", key: "N"}, res => {
+                        console.log("redirect_to_new");
                     })
                     break;
                 case 84:
@@ -34,8 +38,8 @@ if (window.location.origin.includes("service-now")) {
                     })
                     break;
                 case 85:
-                    chrome.runtime.sendMessage({action: "redirect_to_new", key: "U"}, res => {
-                        console.log("redirect_to_new");
+                    chrome.runtime.sendMessage({action: "redirect_to_sys_user", key: "U"}, res => {
+                        console.log("redirect_to_sys_user");
                     })
                     break;
                 case 87:
