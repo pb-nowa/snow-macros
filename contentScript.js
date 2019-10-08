@@ -2,13 +2,15 @@ if (window.location.origin.includes("service-now")) {
     console.log("*******CONTENT SCRIPT IS RUN********")
     const shadowBreakerScript = document.createElement('script');
     shadowBreakerScript.src = chrome.extension.getURL('shadowBreaker.js');
-    (document.head ||  document.documentElement).appendChild(shadowBreakerScript);
+    (document.head ||  document.documentElement).prepend(shadowBreakerScript);
 
 
 
     function init() {
         const mainWindow = document.getElementById("gsft_main");
-        console.log(mainWindow.shadowRoot);
+        // console.log(mainWindow.shadowRoot);
+        //main = document.getElementById('gsft_main').contentDocument.defaultView;
+        //                                           .contentWindow
     }
     
     window.onload = init;
