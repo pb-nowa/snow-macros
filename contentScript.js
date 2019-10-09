@@ -5,21 +5,28 @@ if (window.location.origin.includes("service-now")) {
     (document.head || document.documentElement).prepend(shadowBreakerScript);
 
     const ctx = {}; 
-
     
     function init() {
         ctx.MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
-        ctx.createNew = ctx.MAIN.getElementById("sysverb_new");
-        
-        const submit = ctx.MAIN.getElementById("sysverb_insert");
-        const navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
-        ctx.contextMenu = navbar.children[2];
-        ctx.contextMenu.click();
 
-        const menuOptions = ctx.MAIN.getElementById('context_1');
-        const saveButton = menuOptions.getElementsByClassName('context_item')[0]
-        console.log(saveButton)
-        saveButton.click()
+        ctx._createNew = ctx.MAIN.getElementById("sysverb_new");
+        ctx.handleCreateNew = function() {
+            ctx._createNew.click();
+        }
+        
+        const navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
+        ctx._contextMenu = navbar.children[2];
+        ctx.openContextMenu = function() {
+            ctx._contextMenu.click()
+        };
+
+        ctx.handleSave = function() {
+            ctx.openContextMenu()
+            //context_1 is only available on the DOM after calling openContextMenu
+            const menuOptions = ctx.MAIN.getElementById('context_1');
+            const saveButton = menuOptions.getElementsByClassName('context_item')[0]
+            saveButton.click()
+        };
     }
     
     window.onload = init;
@@ -43,10 +50,11 @@ if (window.location.origin.includes("service-now")) {
                     }, res => decodeKeyRes(res))
                     break;
                 case 78:
-                    ctx.createNew.click()
+                    ctx.handleCreateNew()
                     console.log("redirect_to_new")
                     break;
                 case 83:
+                    ctx.handleSave()
                     console.log("save")
                     break;
                 case 84:
