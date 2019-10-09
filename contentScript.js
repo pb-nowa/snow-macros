@@ -4,17 +4,18 @@ if (window.location.origin.includes("service-now")) {
     shadowBreakerScript.src = chrome.extension.getURL('shadowBreaker.js');
     (document.head ||  document.documentElement).prepend(shadowBreakerScript);
 
-
+    const ctx = {};
 
     function init() {
-        const mainWindow = document.getElementById("gsft_main");
+        ctx.GSFT_MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
+        ctx.createNew = ctx.GSFT_MAIN.getElementById("sysverb_new")
+        console.log(ctx.createNew);
         // console.log(mainWindow.shadowRoot);
         //main = document.getElementById('gsft_main').contentDocument.defaultView;
         //                                           .contentWindow
 
-        const button = document.getElementById('gsft_main').contentDocument.defaultView.document.getElementById("cog-wheel")
-        console.log(button);
-        button.click();
+        // const button = document.getElementById('gsft_main').contentDocument.defaultView.document.getElementById("sysverb_insert")
+        //const c_1 = GSFT_MAIN.getElementById('context_1');
     }
     
     window.onload = init;
@@ -28,9 +29,15 @@ if (window.location.origin.includes("service-now")) {
                     })
                     break;
                 case 78:
-                    chrome.runtime.sendMessage({action: "redirect_to_new", key: "N"}, res => {
-                        console.log("redirect_to_new");
-                    })
+                    // chrome.runtime.sendMessage({action: "redirect_to_new", key: "N"}, res => {
+                    //     console.log("redirect_to_new");
+                    // })
+                    ctx.createNew.click();
+                    console.log("redirect_to_new")
+                    break;
+                case 83:
+                    //gsftSubmit(gel('sysverb_update_and_stay')).call(GSFT_MAIN);
+                    console.log("save");
                     break;
                 case 84:
                     chrome.runtime.sendMessage({action: "redirect_to_tables", key: "T"}, res => {
