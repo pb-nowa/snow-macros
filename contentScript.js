@@ -3,40 +3,50 @@ if (window.location.origin.includes("service-now")) {
     const shadowBreakerScript = document.createElement('script');
     shadowBreakerScript.src = chrome.extension.getURL('shadowBreaker.js');
     (document.head || document.documentElement).prepend(shadowBreakerScript);
-
-    const ctx = {}; 
+    
+    const currentLocation = {};
+    const previousLocation = {};
+    const ctx = { currentLocation, previousLocation }; 
     
     function init() {
-        ctx.MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
+        ctx.getDOM = function() {
+            const element = document.getElementById("gsft_main");
 
-        ctx._createNew = ctx.MAIN.getElementById("sysverb_new");
+            ctx.previousLocation = ctx.currentLocation;
+            ctx.currentLocation = element.contentWindow.location.pathname;
+            return element.contentDocument.defaultView.document;
+        }
+
+        ctx.updateDOM = function() {
+            //this should be called anytime a function redirects the virtualDOM
+            ctx.MAIN = ctx.getDOM()
+        }
+
         ctx.handleCreateNew = function() {
+            ctx.updateDOM();
+            ctx._createNew = ctx.MAIN.getElementById("sysverb_new");
             ctx._createNew.click();
+            
         }
         
-        ctx.getContextMenu = function() {
+        ctx.getContextMenuButton = function() {
             ctx._navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
             ctx._contextMenu = ctx._navbar.children[2];
         }
 
-        ctx.getContextMenu()
-
         ctx.openContextMenu = function() {
-            HTMLButtonElement.prototype.click.call(ctx._contextMenu)
-            console.log(ctx._contextMenu)
-            console.log("clicked")
+            ctx._contextMenu.click();
         };
 
-        ctx.handleSave = function() {
-            ctx.getContextMenu()
+        ctx.handleSave = function() {    
+            ctx.updateDOM();        
+            ctx.getContextMenuButton()
             ctx.openContextMenu()
-            let menuOptions = ctx.MAIN.getElementById('context_1');
 
-            //TODO: create an exception handler and rerun _contextmenu DOM tree search if not available
-            
             //context_1 is only available on the DOM after calling openContextMenu
-            // const saveButton = menuOptions.getElementsByClassName('context_item')[0]
-            // saveButton.click()
+            let menuOptions = ctx.MAIN.getElementById('context_1');            
+            const saveButton = menuOptions.getElementsByClassName('context_item')[0]
+            saveButton.click()
         };
     }
     
