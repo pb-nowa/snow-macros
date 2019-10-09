@@ -20,17 +20,23 @@ if (window.location.origin.includes("service-now")) {
     
     window.onload = init;
 
+    function decodeKeyRes(res) {
+        if (res.status) {
+            console.log(res.action)
+        } else {
+            console.log(`Keydown Error ${res.keyCode}`)
+        }
+    }
+
     document.addEventListener('keydown', e => {
         if (e.ctrlKey && e.shiftKey) {
             switch (e.keyCode) {
                 case 71:
-                    chrome.runtime.sendMessage({action: "redirect_to_sys_user_group", key: "G"}, res => {
-                        if (res.status) {
-                            console.log("redirect_to_sys_user_group")
-                        } else {
-                            console.log("Keydown Error 71")
-                        }
-                    })
+                    chrome.runtime.sendMessage({ 
+                        action: "redirect_to_sys_user_group", 
+                        key: "G", 
+                        keyCode: 71
+                    }, res => decodeKeyRes(res))
                     break;
                 case 78:
                     ctx.createNew.click()
@@ -40,31 +46,25 @@ if (window.location.origin.includes("service-now")) {
                     console.log("save")
                     break;
                 case 84:
-                    chrome.runtime.sendMessage({action: "redirect_to_tables", key: "T"}, res => {
-                        if (res.status) {
-                            console.log("redirect_to_tables")
-                        } else {
-                            console.log("Keydown Error 84")
-                        }
-                    })
+                    chrome.runtime.sendMessage({ 
+                        action: "redirect_to_tables", 
+                        key: "T",
+                        keyCode: 84
+                    }, res => decodeKeyRes(res))
                     break;
                 case 85:
-                    chrome.runtime.sendMessage({action: "redirect_to_sys_user", key: "U"}, res => {
-                        if (res.status) {
-                            console.log("redirect_to_sys_user")
-                        } else {
-                            console.log("Keydown Error 85")
-                        }
-                    })
+                    chrome.runtime.sendMessage({
+                        action: "redirect_to_sys_user", 
+                        key: "U",
+                        keyCode: 85 
+                    }, res => decodeKeyRes(res))
                     break;
                 case 87:
-                    chrome.runtime.sendMessage({action:"redirect_to_workspace", key: "W"}, res => {
-                        if (res.status) {
-                            console.log("redirect_to_workspace")
-                        } else {
-                            console.log("Keydown Error 87")
-                        }
-                    })
+                    chrome.runtime.sendMessage({
+                        action:"redirect_to_workspace", 
+                        key: "W",
+                        keyCode: 87 
+                    }, res => decodeKeyRes(res))
                     break;
                 default:
                     break;

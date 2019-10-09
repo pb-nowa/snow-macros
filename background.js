@@ -50,26 +50,26 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   switch (request.action) {
     case "redirect_to_sys_user":
       redirect("uri=%2Fsys_user_list.do")
-      sendResponse({ status: true })
+      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
     case "redirect_to_sys_user_group":
       redirect("uri=%2Fsys_user_group_list.do");
-      sendResponse({ status: true })
+      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
     case "redirect_to_tables":
       redirect("uri=%2Fsys_db_object_list.do");
-      sendResponse({ status: true })
+      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
     case "redirect_to_new":
       redirectToNew();
-      sendResponse({ status: true })
+      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
     case "redirect_to_workspace":
       redirectToWorkspace();
-      sendResponse({ status: true })
+      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
     default:
-      sendResponse({ status: false })
+        sendResponse({ action: request.action, keyCode: request.keyCode, status: false })
       break;
   }
 })
