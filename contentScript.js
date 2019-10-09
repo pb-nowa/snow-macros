@@ -25,33 +25,45 @@ if (window.location.origin.includes("service-now")) {
             switch (e.keyCode) {
                 case 71:
                     chrome.runtime.sendMessage({action: "redirect_to_sys_user_group", key: "G"}, res => {
-                        console.log("redirect_to_sys_user_group");
+                        if (res.status) {
+                            console.log("redirect_to_sys_user_group")
+                        } else {
+                            console.log("Keydown Error 71")
+                        }
                     })
                     break;
                 case 78:
-                    // chrome.runtime.sendMessage({action: "redirect_to_new", key: "N"}, res => {
-                    //     console.log("redirect_to_new");
-                    // })
-                    ctx.createNew.click();
+                    ctx.createNew.click()
                     console.log("redirect_to_new")
                     break;
                 case 83:
-                    //gsftSubmit(gel('sysverb_update_and_stay')).call(GSFT_MAIN);
-                    console.log("save");
+                    console.log("save")
                     break;
                 case 84:
                     chrome.runtime.sendMessage({action: "redirect_to_tables", key: "T"}, res => {
-                        console.log("redirect_to_tables");
+                        if (res.status) {
+                            console.log("redirect_to_tables")
+                        } else {
+                            console.log("Keydown Error 84")
+                        }
                     })
                     break;
                 case 85:
                     chrome.runtime.sendMessage({action: "redirect_to_sys_user", key: "U"}, res => {
-                        console.log("redirect_to_sys_user");
+                        if (res.status) {
+                            console.log("redirect_to_sys_user")
+                        } else {
+                            console.log("Keydown Error 85")
+                        }
                     })
                     break;
                 case 87:
                     chrome.runtime.sendMessage({action:"redirect_to_workspace", key: "W"}, res => {
-                        console.log("redirect_to_workspace");
+                        if (res.status) {
+                            console.log("redirect_to_workspace")
+                        } else {
+                            console.log("Keydown Error 87")
+                        }
                     })
                     break;
                 default:
@@ -60,18 +72,4 @@ if (window.location.origin.includes("service-now")) {
         }
         console.log(e.keyCode);
     });
-    
-       // "%3Fsys_id%3D-1%26sys_is_list%3Dtrue%26sys_target%3D" + name +   "%26sysparm_checked_items%3D%26sysparm_fixed_query%3D%26sysparm_group_sort%3D%26sysparm_list_css%3D%26sysparm_query%3D%26sysparm_referring_url%3D" + name + "_list.do%26sysparm_target%3D%26sysparm_view%3D"
-    //   %3Fsys_id%3D-1%26sys_is_list%3Dtrue%26sys_target%3Dsys_user_group%26sysparm_checked_items%3D%26sysparm_fixed_query%3D%26sysparm_group_sort%3D%26sysparm_list_css%3D%26sysparm_query%3D%26sysparm_referring_url%3Dsys_user_group_list.do%26sysparm_target%3D%26sysparm_view%3D
-    //ctrlKey
-    //shiftKey
 }
-
-
-
-//cmd: 91
-//opt: 18
-
-
-//C: 67
-
