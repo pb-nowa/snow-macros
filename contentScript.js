@@ -14,18 +14,29 @@ if (window.location.origin.includes("service-now")) {
             ctx._createNew.click();
         }
         
-        const navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
-        ctx._contextMenu = navbar.children[2];
+        ctx.getContextMenu = function() {
+            ctx._navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
+            ctx._contextMenu = ctx._navbar.children[2];
+        }
+
+        ctx.getContextMenu()
+
         ctx.openContextMenu = function() {
-            ctx._contextMenu.click()
+            HTMLButtonElement.prototype.click.call(ctx._contextMenu)
+            console.log(ctx._contextMenu)
+            console.log("clicked")
         };
 
         ctx.handleSave = function() {
+            ctx.getContextMenu()
             ctx.openContextMenu()
+            let menuOptions = ctx.MAIN.getElementById('context_1');
+
+            //TODO: create an exception handler and rerun _contextmenu DOM tree search if not available
+            
             //context_1 is only available on the DOM after calling openContextMenu
-            const menuOptions = ctx.MAIN.getElementById('context_1');
-            const saveButton = menuOptions.getElementsByClassName('context_item')[0]
-            saveButton.click()
+            // const saveButton = menuOptions.getElementsByClassName('context_item')[0]
+            // saveButton.click()
         };
     }
     
