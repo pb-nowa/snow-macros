@@ -24,8 +24,8 @@ if (window.location.origin.includes("service-now")) {
 
         ctx.handleCreateNew = function() {
             ctx.updateDOM();
-            const newButton = ctx.MAIN.getElementById("sysverb_new");
-            newButton.click();
+            const button = ctx.MAIN.getElementById("sysverb_new");
+            button.click();
         }
         
         ctx.getContextMenuButton = function() {
@@ -44,9 +44,9 @@ if (window.location.origin.includes("service-now")) {
             ctx.openContextMenu()
 
             //context_1 is only available on the DOM after calling openContextMenu
-            let menuOptions = ctx.MAIN.getElementById('context_1');            
-            const saveButton = menuOptions.getElementsByClassName('context_item')[0]
-            saveButton.click()
+            let contextMenu = ctx.MAIN.getElementById('context_1');            
+            const button = contextMenu.getElementsByClassName('context_item')[0]
+            button.click()
         };
     }
     
