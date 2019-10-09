@@ -2,12 +2,9 @@ if (window.location.origin.includes("service-now")) {
     console.log("*******CONTENT SCRIPT IS RUN********")
     const shadowBreakerScript = document.createElement('script');
     shadowBreakerScript.src = chrome.extension.getURL('shadowBreaker.js');
-    (document.head ||  document.documentElement).prepend(shadowBreakerScript);
+    (document.head || document.documentElement).prepend(shadowBreakerScript);
 
-    const ctx = {};
-
-    // const rightClick = new Event();
-    
+    const ctx = {};    
     
     function init() {
         ctx.MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
@@ -19,9 +16,6 @@ if (window.location.origin.includes("service-now")) {
         ctx.MAIN.addEventListener('click', e => {
             console.log(e)
         });
-
-        // const button = document.getElementById('gsft_main').contentDocument.defaultView.document.getElementById("sysverb_insert")
-        //const c_1 = GSFT_MAIN.getElementById('context_1');
     }
     
     window.onload = init;

@@ -39,33 +39,12 @@ function redirectToWorkspace() {
   chrome.tabs.query({ currentWindow: true, active: true }, tabs => {
     const tab = tabs[0]
 
-    //TODO fix 'name' split so that it grabs the table name from the url
     const urlChunk = tab.url.split(/.com/)[0];
     const  url = urlChunk + ".com/workspace";
     
     chrome.tabs.update(tab.id, { url });
   })
 }
-
-/*
-old commands through chrome api
-
-chrome.commands.onCommand.addListener(function(command) {
-  switch (command) {
-    case "redirect_to_sys_user":
-      redirect("uri=%2Fsys_user_list.do");
-      break;
-    case "redirect_to_sys_user_group":
-      redirect("uri=%2Fsys_user_group_list.do");
-      break;
-    case "redirect_to_tables":
-      redirect("uri=%2Fsys_db_object_list.do");
-      break;
-    default:
-      break;
-  }
-});
-*/
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   switch (request.action) {
