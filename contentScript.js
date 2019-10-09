@@ -18,29 +18,29 @@ if (window.location.origin.includes("service-now")) {
         }
 
         ctx.updateDOM = function() {
-            //this should be called anytime a function redirects the virtualDOM
+            //this should be called anytime a function traverses the virtualDOM
             ctx.MAIN = ctx.getDOM()
         }
 
         ctx.handleCreateNew = function() {
             ctx.updateDOM();
-            ctx._createNew = ctx.MAIN.getElementById("sysverb_new");
-            ctx._createNew.click();
-            
+            const newButton = ctx.MAIN.getElementById("sysverb_new");
+            newButton.click();
         }
         
         ctx.getContextMenuButton = function() {
-            ctx._navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
-            ctx._contextMenu = ctx._navbar.children[2];
+            const navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
+            return navbar.children[2];
         }
 
+
         ctx.openContextMenu = function() {
-            ctx._contextMenu.click();
+            const button = ctx.getContextMenuButton()
+            button.click();
         };
 
         ctx.handleSave = function() {    
             ctx.updateDOM();        
-            ctx.getContextMenuButton()
             ctx.openContextMenu()
 
             //context_1 is only available on the DOM after calling openContextMenu
@@ -72,11 +72,11 @@ if (window.location.origin.includes("service-now")) {
                     break;
                 case 78:
                     ctx.handleCreateNew()
-                    console.log("redirect_to_new")
+                    console.log("Click New")
                     break;
                 case 83:
                     ctx.handleSave()
-                    console.log("save")
+                    console.log("Click Save")
                     break;
                 case 84:
                     chrome.runtime.sendMessage({ 
