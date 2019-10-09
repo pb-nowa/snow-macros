@@ -5,7 +5,7 @@ if (window.location.origin.includes("service-now")) {
     (document.head || document.documentElement).prepend(shadowBreakerScript);
 
     const ctx = {}; 
-       
+
     
     function init() {
         ctx.MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
@@ -16,10 +16,10 @@ if (window.location.origin.includes("service-now")) {
         ctx.contextMenu = navbar.children[2];
         ctx.contextMenu.click();
 
-        const menuOptions = ctx.MAIN.getElementById(context_1);
-        console.log(menuOptions)
-        
-    
+        const menuOptions = ctx.MAIN.getElementById('context_1');
+        const saveButton = menuOptions.getElementsByClassName('context_item')[0]
+        console.log(saveButton)
+        saveButton.click()
     }
     
     window.onload = init;
