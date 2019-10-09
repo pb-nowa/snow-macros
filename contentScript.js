@@ -4,18 +4,22 @@ if (window.location.origin.includes("service-now")) {
     shadowBreakerScript.src = chrome.extension.getURL('shadowBreaker.js');
     (document.head || document.documentElement).prepend(shadowBreakerScript);
 
-    const ctx = {};    
+    const ctx = {}; 
+       
     
     function init() {
         ctx.MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
         ctx.createNew = ctx.MAIN.getElementById("sysverb_new");
+        
         const submit = ctx.MAIN.getElementById("sysverb_insert");
-        console.log(submit);
-        //main = document.getElementById('gsft_main').contentDocument.defaultView;
-        //                                           .contentWindow
-        ctx.MAIN.addEventListener('click', e => {
-            console.log(e)
-        });
+        const navbar = ctx.MAIN.getElementsByClassName('navbar-header')[0];
+        ctx.contextMenu = navbar.children[2];
+        ctx.contextMenu.click();
+
+        const menuOptions = ctx.MAIN.getElementById(context_1);
+        console.log(menuOptions)
+        
+    
     }
     
     window.onload = init;
