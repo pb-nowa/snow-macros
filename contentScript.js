@@ -6,13 +6,19 @@ if (window.location.origin.includes("service-now")) {
 
     const ctx = {};
 
+    // const rightClick = new Event();
+    
+    
     function init() {
-        ctx.GSFT_MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
-        ctx.createNew = ctx.GSFT_MAIN.getElementById("sysverb_new")
-        console.log(ctx.createNew);
-        // console.log(mainWindow.shadowRoot);
+        ctx.MAIN = document.getElementById("gsft_main").contentDocument.defaultView.document;
+        ctx.createNew = ctx.MAIN.getElementById("sysverb_new");
+        const submit = ctx.MAIN.getElementById("sysverb_insert");
+        console.log(submit);
         //main = document.getElementById('gsft_main').contentDocument.defaultView;
         //                                           .contentWindow
+        ctx.MAIN.addEventListener('click', e => {
+            console.log(e)
+        });
 
         // const button = document.getElementById('gsft_main').contentDocument.defaultView.document.getElementById("sysverb_insert")
         //const c_1 = GSFT_MAIN.getElementById('context_1');
