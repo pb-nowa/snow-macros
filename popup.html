@@ -3,20 +3,114 @@
   <head>
     <style>
       body {
-        width: 300px;
+        background-color: #F4F4F4;
+        border: 0 0 0 0;
+        padding: 0 0 0 0;
+        font-family: "SourceSansPro", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
 
+      h1 {
+        font-size: 20px;
+        margin: 2px;
+        padding: none;
+        color: #293E40;
+        font-family: inherit;
+      }
+
+      h2 {
+        font-size: 14px;
+        margin: 8px;
+        padding: none;
+        color: #293E40;
+        font-family: inherit;
+      }
+
+      li {
+        list-style-type: none;
+      }
+
+      div {
+        font-family: inherit;
+      }
+
+      li div {
+        font-size: 14px;
+        font-family: inherit;
+        color: #666666;
+      }
+
+      .snow-panel {
+        border-radius: 2px;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
+        background-color: #FFFFFF;
+      }
+
+      .s-macro-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+      }
+
+      .header-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background-color: #FFFFFF;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+      }
+
+      .keybindings-container {
+        margin: 16px;
+        padding: 0 0 0 0;
+      }
+
+      .keybinding-item {
+        display: flex;
+        margin: 8px;
+      }
+
+      .keybinding {
+        width: min-content;
+      }
+
+      .keybinding-label {
+        width: 200px;
+        overflow: none;
       }
     </style>
   </head>
   <body>
-    <div>
-      <h2>this is a list of keyboard shortcuts</h2>
-      <ul>
-        <li>shortcuts</li>
-        <li>shortcuts</li>
-        <li>shortcuts</li>
-        <li>shortcuts</li>
-        <li>shortcuts</li>
+    <div class="header-container">
+      <h1>SNOW Macros</h1>
+    </div>
+    <div class="s-macro-container">
+      <ul class="keybindings-container snow-panel">
+        <h2>Keybindings</h2>
+        <li class="keybinding-item">
+          <div class="keybinding-label">Create New:</div> 
+          <div class="keybinding">cntl+shift+N</div>
+        </li>
+        <li class="keybinding-item">
+          <div class="keybinding-label">Save:</div>
+          <div class="keybinding">cntl+shift+S</div>
+        </li>
+        <li class="keybinding-item">
+          <div class="keybinding-label">Redirect to Groups Table:</div>
+          <div class="keybinding">cntl+shift+G</div>
+        </li>
+        <li class="keybinding-item">
+          <div class="keybinding-label">Redirect to sys_tables Table:</div>
+          <div class="keybinding">cntl+shift+T</div>
+        </li>
+        <li class="keybinding-item">
+          <div class="keybinding-label">Redirect to Users Table:</div>
+          <div class="keybinding">cntl+shift+U</div>
+        </li>
       </ul>
     </div>
     <script src="popup.js"></script>
