@@ -31,30 +31,6 @@
         "48": "images/snow.ico",
         "128": "images/snow.ico"
     },
-    "commands": {
-        "redirect_to_sys_user": {
-          "suggested_key": {
-            "default": "Alt+Shift+U",
-            "mac": "Alt+Shift+U"
-          },
-          "description": "Redirect to sys_user"
-        },
-        "redirect_to_sys_user_group": {
-          "suggested_key": {
-            "default": "Alt+Shift+G",
-            "mac": "Alt+Shift+G"
-          },
-          "description": "Redirect to sys_user_group"
-        },
-        "redirect_to_tables": {
-          "suggested_key": {
-            "default": "Alt+Shift+T",
-            "mac": "Alt+Shift+T"
-          },
-          "description": "Redirect to Tables"
-        }
-
-      },
     "manifest_version": 2
 
 }

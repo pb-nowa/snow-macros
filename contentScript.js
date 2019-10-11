@@ -12,7 +12,10 @@ if (window.location.origin.includes("service-now")) {
         ctx.getDOM = function() {
             const element = document.getElementById("gsft_main");
 
-            ctx.previousLocation = ctx.currentLocation;
+            
+            // element.contentWindow.postMessage({response: "test"}, "https://emppnowakowski.service-now.com/nav_to.do?uri=%2Fhome.do%3F")
+
+            ctx.previousLocation = ctx.currentLocation; 
             ctx.currentLocation = element.contentWindow.location.pathname;
             return element.contentDocument.defaultView.document;
         }
@@ -48,9 +51,18 @@ if (window.location.origin.includes("service-now")) {
             const button = contextMenu.getElementsByClassName('context_item')[0]
             button.click()
         };
+
+        ctx.updateDOM()
     }
     
     window.onload = init;
+
+    // window.addEventListener("message", e => {
+    //     //if (e.origin !== "https...") {
+    //     //     return;
+    //     // }
+    //     console.log(e);
+    // }, false)
 
     function decodeKeyRes(res) {
         if (res.status) {
