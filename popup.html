@@ -4,14 +4,14 @@
     <style>
       body {
         background-color: #F4F4F4;
-        border: 0 0 0 0;
+        margin: 0 0 0 0;
         padding: 0 0 0 0;
         font-family: "SourceSansPro", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
 
       h1 {
         font-size: 20px;
-        margin: 2px;
+        margin: 8px 8px 0 8px;
         padding: none;
         color: #293E40;
         font-family: inherit;
@@ -20,9 +20,21 @@
       h2 {
         font-size: 14px;
         margin: 8px;
-        padding: none;
         color: #293E40;
         font-family: inherit;
+      }
+
+      input {
+        border: 1px solid #74ACBB;
+        border-radius: 2px;
+        margin: 8px 8px 10px 8px;
+        padding: 8px;
+        font-size: 14px;
+        width: 80%;
+      }
+
+      input:focus {
+        outline: none;
       }
 
       li {
@@ -37,6 +49,14 @@
         font-size: 14px;
         font-family: inherit;
         color: #666666;
+      }
+
+      .header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
 
       .snow-panel {
@@ -55,11 +75,10 @@
       }
 
       .header-container {
+        width: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 100%;
         background-color: #FFFFFF;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
       }
@@ -86,7 +105,10 @@
   </head>
   <body>
     <div class="header-container">
-      <h1>SNOW Macros</h1>
+      <div class="header">
+        <h1>SNOW Macros</h1>
+        <input type="text" placeholder="find a shortcut">
+      </div>
     </div>
     <div class="s-macro-container">
       <ul class="keybindings-container snow-panel">
