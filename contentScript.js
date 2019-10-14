@@ -11,18 +11,19 @@ if (window.location.origin.includes("service-now")) {
     function init() {
         ctx.getDOM = function() {
             const element = document.getElementById("gsft_main");
-
             
-            // element.contentWindow.postMessage({response: "test"}, "https://emppnowakowski.service-now.com/nav_to.do?uri=%2Fhome.do%3F")
-
             ctx.previousLocation = ctx.currentLocation; 
             ctx.currentLocation = element.contentWindow.location.pathname;
             return element.contentDocument.defaultView.document;
         }
 
         ctx.updateDOM = function() {
-            //this should be called anytime a function traverses the virtualDOM
+            //this should be called anytime a function traverses the iframeDOM
             ctx.MAIN = ctx.getDOM()
+
+            ctx.MAIN.addEventListener('keydown', e => {
+                window.parent.postMessage({ keyCode: e.keyCode }, window.location.origin);
+            })
         }
 
         ctx.handleCreateNew = function() {
@@ -52,17 +53,19 @@ if (window.location.origin.includes("service-now")) {
             button.click()
         };
 
+        //call updateDOM so that the iframe keylistener is active
         ctx.updateDOM()
     }
     
     window.onload = init;
 
-    // window.addEventListener("message", e => {
-    //     //if (e.origin !== "https...") {
-    //     //     return;
-    //     // }
-    //     console.log(e);
-    // }, false)
+    window.addEventListener("message", e => {
+        //DON'T HANDLE MESSAGES FROM OTHER SOURCES!
+        if (e.origin !== window.location.origin) {
+            return;
+        }
+        console.log(e.data.keyCode);
+    }, false)
 
     function decodeKeyRes(res) {
         if (res.status) {
@@ -115,6 +118,6 @@ if (window.location.origin.includes("service-now")) {
                     break;
             }
         }
-        console.log(e.keyCode);
+        // console.log(e.keyCode);
     });
 }
