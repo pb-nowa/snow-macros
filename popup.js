@@ -2,9 +2,13 @@ const root = document.getElementById('root');
 const search = document.getElementById('search');
 
 search.addEventListener('change', e => {
-    const div = document.createElement("div");
-    const text = document.createTextNode("test test");
-    div.appendChild(text)
-    root.appendChild(div)
+    
 })
 
+chrome.runtime.sendMessage({
+    message: "this message is sending 2"
+}, res => {
+
+})
+
+//sender  #id, #tab, #url

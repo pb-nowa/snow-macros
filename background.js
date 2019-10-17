@@ -47,6 +47,7 @@ function redirectToWorkspace() {
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log("sender: "+sender.id + " "+sender.tab + " " + sender.url, ", message: "+request.message)
   switch (request.action) {
     case "redirect_to_sys_user":
       redirect("uri=%2Fsys_user_list.do")
