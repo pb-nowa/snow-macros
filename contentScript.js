@@ -22,7 +22,12 @@ if (window.location.origin.includes("service-now")) {
             ctx.MAIN = ctx.getDOM()
 
             ctx.MAIN.addEventListener('keydown', e => {
-                window.parent.postMessage({ keyCode: e.keyCode }, window.location.origin);
+                window.parent.postMessage({ 
+                    keyCode: e.keyCode, 
+                    type: e.type,
+                    ctrlKey: e.ctrlKey,
+                    shiftKey: e.shiftKey,
+                }, window.location.origin);
             })
         }
 
@@ -54,18 +59,12 @@ if (window.location.origin.includes("service-now")) {
         };
 
         //call updateDOM so that the iframe keylistener is active
-        ctx.updateDOM()
+        if (!window.location.pathname.includes("workspace")){
+            ctx.updateDOM()
+        }
     }
     
     window.onload = init;
-
-    window.addEventListener("message", e => {
-        //DON'T HANDLE MESSAGES FROM OTHER SOURCES!
-        if (e.origin !== window.location.origin) {
-            return;
-        }
-        console.log(e.data.keyCode);
-    }, false)
 
     function decodeKeyRes(res) {
         if (res.status) {
@@ -75,7 +74,7 @@ if (window.location.origin.includes("service-now")) {
         }
     }
 
-    document.addEventListener('keydown', e => {
+    function handleKeydown(e) {
         if (e.ctrlKey && e.shiftKey) {
             switch (e.keyCode) {
                 case 71:
@@ -118,6 +117,23 @@ if (window.location.origin.includes("service-now")) {
                     break;
             }
         }
-        // console.log(e.keyCode);
-    });
+    }
+
+    document.addEventListener('keydown', e => handleKeydown(e));
+  
+    window.addEventListener('message', e => {
+        const { type } = e.data;
+        //DON'T HANDLE MESSAGES FROM OTHER SOURCES!
+        if (e.origin !== window.location.origin) {
+            return;
+        }
+
+        switch (type) {
+            case "keydown":
+                handleKeydown(e.data)
+                break;        
+            default:
+                break;
+        }
+    }, false)
 }
