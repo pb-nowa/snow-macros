@@ -75,6 +75,9 @@ if (window.location.origin.includes("service-now")) {
     }
 
     function toggleDarkMode() {
+        //TODO: persist darkMode accross sessions and iframe location changes
+        // create a more robust color scheme
+        //
         ctx.updateDOM()
         
         const root = ctx.MAIN.children[0].children[1];
@@ -84,10 +87,10 @@ if (window.location.origin.includes("service-now")) {
             let node = queue.shift();
             let children = node.children;
             if (node.tagName != "SCRIPT") {
-                if (children) {
-                    for (let child of children) queue.push(child)
-                }
+                if (children.length) for (let child of children) queue.push(child)
+
                 if (!!node.style.backgroundColor) {
+                    //this isnt working for some reason!?!?!?
                     node.style.backgroundColor = '#FFFFFF';
                 } else {
                     node.style.backgroundColor = '#243447';
