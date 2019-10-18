@@ -84,6 +84,7 @@ if (window.location.origin.includes("service-now")) {
         const queue = Array.from(root.children);
         
         while (queue.length) {
+            //update git
             let node = queue.shift();
             let children = node.children;
             if (node.tagName != "SCRIPT") {
