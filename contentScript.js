@@ -74,9 +74,37 @@ if (window.location.origin.includes("service-now")) {
         }
     }
 
+    function toggleDarkMode() {
+        ctx.updateDOM()
+        
+        const root = ctx.MAIN.children[0].children[1];
+        const queue = Array.from(root.children);
+        
+        while (queue.length) {
+            let node = queue.shift();
+            let children = node.children;
+            if (node.tagName != "SCRIPT") {
+                if (children) {
+                    for (let child of children) queue.push(child)
+                }
+                if (!!node.style.backgroundColor) {
+                    node.style.backgroundColor = '#FFFFFF';
+                } else {
+                    node.style.backgroundColor = '#243447';
+                }
+
+                node.style.color = "#87ceeb"
+            }
+        }
+    }
+
     function handleKeydown(e) {
         if (e.ctrlKey && e.shiftKey) {
             switch (e.keyCode) {
+                case 68:
+                    //('D') dark mode
+                    toggleDarkMode()
+                    break;
                 case 71:
                     chrome.runtime.sendMessage({ 
                         action: "redirect_to_sys_user_group", 
@@ -116,6 +144,7 @@ if (window.location.origin.includes("service-now")) {
                 default:
                     break;
             }
+            console.log(e.keyCode)
         }
     }
 
