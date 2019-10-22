@@ -1,3 +1,5 @@
+'use strict'
+
 const root = document.getElementById('root');
 const search = document.getElementById('search');
 const keyContainer = document.getElementById("keybindings-container");
@@ -32,6 +34,11 @@ const MACROS = {
         command: "cntl+shift+E"
     }
 }
+
+Object.freeze(MACROS)
+
+
+
 
 const state = {};
 state.macros = Object.values(MACROS);
