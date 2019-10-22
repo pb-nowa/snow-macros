@@ -6,20 +6,41 @@ if (window.location.origin.includes("service-now")) {
     
     const currentLocation = {};
     const previousLocation = {};
-    const ctx = { currentLocation, previousLocation }; 
+    const isStudioEditor = false;
+    const isWorkspace = false;
+
+    const ctx = { currentLocation, previousLocation, isStudioEditor, isWorkspace }; 
     
     function init() {
         ctx.getDOM = function() {
-            const element = document.getElementById("gsft_main");
-            
+            const element = document.getElementById('gsft_main');
+
+            if (!element) {
+                return null;
+            }
+
             ctx.previousLocation = ctx.currentLocation; 
             ctx.currentLocation = element.contentWindow.location.pathname;
             return element.contentDocument.defaultView.document;
         }
 
+        function isWorkspace() {
+            const paths = window.location.pathname.split('/');
+            const isWorkspacePath = paths.includes('workspace');
+            return isWorkspacePath;
+        }
+
         ctx.updateDOM = function() {
             //this should be called anytime a function traverses the iframeDOM
             ctx.MAIN = ctx.getDOM()
+            ctx.isStudioEditor = false;
+            ctx.isWorkspace = false;
+
+            if (!ctx.MAIN) {
+                if (window.location.pathname == '/$studio.do') ctx.isStudioEditor = true;
+                if (isWorkspace()) ctx.isWorkspace = true;
+                return;
+            }
 
             ctx.MAIN.addEventListener('keydown', e => {
                 window.parent.postMessage({ 
@@ -33,7 +54,7 @@ if (window.location.origin.includes("service-now")) {
 
         ctx.handleCreateNew = function() {
             ctx.updateDOM();
-            const button = ctx.MAIN.getElementById("sysverb_new");
+            const button = ctx.MAIN.getElementById('sysverb_new');
             button.click();
         }
         
@@ -59,7 +80,7 @@ if (window.location.origin.includes("service-now")) {
         };
 
         //call updateDOM so that the iframe keylistener is active
-        if (!window.location.pathname.includes("workspace")){
+        if (!window.location.pathname.includes('workspace')){
             ctx.updateDOM()
         }
     }
@@ -101,6 +122,19 @@ if (window.location.origin.includes("service-now")) {
             }
         }
     }
+
+    function toggleLeftNav() {
+        if (!ctx.isStudioEditor) {
+            return;
+        }
+
+        const appExplorer = document.getElementById('app-explorer-pane');
+        const sideButton = appExplorer.children[0].children[0].children[0]
+        sideButton.click();
+    }
+
+
+
 
     function handleKeydown(e) {
         if (e.ctrlKey && e.shiftKey) {
@@ -162,8 +196,22 @@ if (window.location.origin.includes("service-now")) {
             }
             console.log(e.keyCode)
         }
+
+        if (e.ctrlKey && e.altKey) {
+            switch (e.keyCode) {
+                case 67:
+                    //C: toggle side pannel
+                    toggleLeftNav()
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
+
+
+    
     document.addEventListener('keydown', e => handleKeydown(e));
   
     window.addEventListener('message', e => {
