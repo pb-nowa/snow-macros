@@ -42,7 +42,7 @@ function redirectToWorkspace() {
     const urlChunk = tab.url.split(/.com/)[0];
     const  url = urlChunk + ".com/workspace";
     
-    chrome.tabs.update(tab.id, { url });
+    chrome.tabs.create({ url });
   })
 }
 
@@ -50,13 +50,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   switch (request.action) {
     case "open_studio":
       const url = request.origin + "/$studio.do?sysparm_transaction_scope=global&sysparm_nostack=true";
-      console.log(url)
       chrome.tabs.create({ url })
       break;
+
     case "redirect_to_sys_user":
       redirect("uri=%2Fsys_user_list.do")
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
+
     case "redirect_to_sys_user_group":
       redirect("uri=%2Fsys_user_group_list.do");
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
@@ -66,14 +67,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       redirect("uri=%2Fsys_db_object_list.do");
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
+
     case "redirect_to_new":
       redirectToNew();
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
+
     case "redirect_to_workspace":
       redirectToWorkspace();
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
+
     default:
         sendResponse({ action: request.action, keyCode: request.keyCode, status: false })
       break;
