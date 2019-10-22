@@ -47,39 +47,42 @@ function redirectToWorkspace() {
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  const { action, keyCode } = request; 
+
   switch (request.action) {
     case "open_studio":
       const url = request.origin + "/$studio.do?sysparm_transaction_scope=global&sysparm_nostack=true";
       chrome.tabs.create({ url })
+      sendResponse({ action, keyCode, status: true })
       break;
 
     case "redirect_to_sys_user":
       redirect("uri=%2Fsys_user_list.do")
-      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
+      sendResponse({ action, keyCode, status: true })
       break;
 
     case "redirect_to_sys_user_group":
       redirect("uri=%2Fsys_user_group_list.do");
-      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
+      sendResponse({ action, keyCode, status: true })
       break;
        
     case "redirect_to_tables":
       redirect("uri=%2Fsys_db_object_list.do");
-      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
+      sendResponse({ action, keyCode, status: true })
       break;
 
     case "redirect_to_new":
       redirectToNew();
-      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
+      sendResponse({ action, keyCode, status: true })
       break;
 
     case "redirect_to_workspace":
       redirectToWorkspace();
-      sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
+      sendResponse({ action, keyCode, status: true })
       break;
 
     default:
-        sendResponse({ action: request.action, keyCode: request.keyCode, status: false })
+        sendResponse({ action, keyCode, status: false })
       break;
   }
 })
