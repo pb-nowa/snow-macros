@@ -61,6 +61,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       redirect("uri=%2Fsys_user_group_list.do");
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
       break;
+       
     case "redirect_to_tables":
       redirect("uri=%2Fsys_db_object_list.do");
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
