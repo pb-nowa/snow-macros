@@ -211,13 +211,13 @@ if (window.location.origin.includes("service-now")) {
 
 
 
-    
+
     document.addEventListener('keydown', e => handleKeydown(e));
   
     window.addEventListener('message', e => {
         const { type } = e.data;
         //DON'T HANDLE MESSAGES FROM OTHER SOURCES!
-        if (e.origin !== window.location.origin) {
+        if (e.origin != window.location.origin) {
             return;
         }
 

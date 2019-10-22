@@ -47,11 +47,11 @@ function redirectToWorkspace() {
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  const { action, keyCode } = request; 
+  const { action, keyCode, origin } = request; 
 
-  switch (request.action) {
+  switch (action) {
     case "open_studio":
-      const url = request.origin + "/$studio.do?sysparm_transaction_scope=global&sysparm_nostack=true";
+      const url = origin + "/$studio.do?sysparm_transaction_scope=global&sysparm_nostack=true";
       chrome.tabs.create({ url })
       sendResponse({ action, keyCode, status: true })
       break;
