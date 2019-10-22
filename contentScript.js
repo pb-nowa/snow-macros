@@ -120,6 +120,7 @@ if (window.location.origin.includes("service-now")) {
     }
 
     function getPathType(pathname) {
+        //TODO: test this and add cases for more path types
         const pathSegments = pathname.split("_");
        
         for (let seg in pathSegments) {

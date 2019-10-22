@@ -32,7 +32,6 @@ function redirectToList() {
     
     chrome.tabs.update(tab.id, { url });
   })
-  
 }
 
 function redirectToWorkspace() {
@@ -50,6 +49,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const { action, keyCode, origin } = request; 
 
   switch (action) {
+    case "popup":
+      console.log("this sent from the popup")
+      break;
     case "open_studio":
       const url = origin + "/$studio.do?sysparm_transaction_scope=global&sysparm_nostack=true";
       chrome.tabs.create({ url })
