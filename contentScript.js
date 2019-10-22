@@ -105,9 +105,21 @@ if (window.location.origin.includes("service-now")) {
     function handleKeydown(e) {
         if (e.ctrlKey && e.shiftKey) {
             switch (e.keyCode) {
+                case 67: 
+                    //C: copy all fields
+                    break;
                 case 68:
-                    //('D') dark mode
+                    //D: toggle dark mode
                     toggleDarkMode()
+                    break;
+                case 69: 
+                    //E: Open Editor (studio)
+                    chrome.runtime.sendMessage({
+                        action: "open_studio",
+                        key: "C",
+                        keyCode: 69,
+                        origin: window.location.origin
+                    })
                     break;
                 case 71:
                     chrome.runtime.sendMessage({ 

@@ -47,8 +47,12 @@ function redirectToWorkspace() {
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log("sender: "+sender.id + " "+sender.tab + " " + sender.url, ", message: "+request.message)
   switch (request.action) {
+    case "open_studio":
+      const url = request.origin + "/$studio.do?sysparm_transaction_scope=global&sysparm_nostack=true";
+      console.log(url)
+      chrome.tabs.create({ url })
+      break;
     case "redirect_to_sys_user":
       redirect("uri=%2Fsys_user_list.do")
       sendResponse({ action: request.action, keyCode: request.keyCode, status: true })
