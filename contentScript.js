@@ -14,10 +14,12 @@ if (window.location.origin.includes("service-now")) {
     function init() {
         ctx.getDOM = function() {
             const element = document.getElementById('gsft_main');
-
+            
             if (!element) {
                 return null;
             }
+            
+            ctx.window = element.contentWindow;
 
             ctx.previousLocation = ctx.currentLocation; 
             ctx.currentLocation = element.contentWindow.location.pathname;
@@ -63,7 +65,6 @@ if (window.location.origin.includes("service-now")) {
             return navbar.children[2];
         }
 
-
         ctx.openContextMenu = function() {
             const button = ctx.getContextMenuButton()
             button.click();
@@ -87,13 +88,8 @@ if (window.location.origin.includes("service-now")) {
     
     window.onload = init;
 
-    function decodeKeyRes(res) {
-        if (res.status) {
-            console.log(res.action)
-        } else {
-            console.log(`Keydown Error ${res.keyCode}`)
-        }
-    }
+
+
 
     function toggleDarkMode() {
         //TODO: persist darkMode accross sessions and iframe location changes
@@ -123,6 +119,17 @@ if (window.location.origin.includes("service-now")) {
         }
     }
 
+    function getPathType(pathname) {
+        const pathSegments = pathname.split("_");
+       
+        for (let seg in pathSegments) {
+            switch (seg) {
+                case 'list.do': return 'list';
+            }
+        }
+        return 'form'
+    }
+
     function toggleLeftNav() {
         if (!ctx.isStudioEditor) {
             return;
@@ -133,8 +140,13 @@ if (window.location.origin.includes("service-now")) {
         sideButton.click();
     }
 
-
-
+    function decodeKeyRes(res) {
+        if (res.status) {
+            return;
+        } else {
+            console.log(`Keydown Error ${res.keyCode}`)
+        }
+    }
 
     function handleKeydown(e) {
         if (e.ctrlKey && e.shiftKey) {
@@ -164,11 +176,13 @@ if (window.location.origin.includes("service-now")) {
                     break;
                 case 78:
                     ctx.handleCreateNew()
-                    console.log("Click New")
+                    break;
+                case 80:
+                    // P: log path
+                    console.log(ctx.window.location);
                     break;
                 case 83:
                     ctx.handleSave()
-                    console.log("Click Save")
                     break;
                 case 84:
                     chrome.runtime.sendMessage({ 
