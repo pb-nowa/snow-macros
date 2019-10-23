@@ -41,31 +41,46 @@ Object.freeze(MACROS)
 
 
 const state = {};
-state.macros = Object.values(MACROS);
+state.current = Object.values(MACROS);
+state.previous = [];
 
-for (let macro of state.macros) {
-    let listElement = document.createElement("LI");
-    
-    let name = document.createElement("DIV");
-    name.className = "keybinding-label";
-    name.textContent = macro.value;
+function populate(list, prevState) {
+    for (let item of list) {
+        const listElement = document.createElement("LI");
+        
+        const name = document.createElement("DIV");
+        name.className = "keybinding-label";
+        name.textContent = item.value;
 
-    let command = document.createElement("DIV");
-    command.className = "keybinding";
-    command.textContent = macro.command;
-    
-    
-    listElement.className = "keybinding-item";
-    listElement.appendChild(name)
-    listElement.appendChild(command)
-    
-    keyContainer.appendChild(listElement)
+        const command = document.createElement("DIV");
+        command.className = "keybinding";
+        command.textContent = item.command;
+        
+        
+        listElement.className = "keybinding-item";
+        listElement.appendChild(name)
+        listElement.appendChild(command)
+        
+        keyContainer.appendChild(listElement)
+    }
 }
 
+populate(state.current, state.previous)
+
 search.addEventListener('input', e => {
-    console.log(e.target.value)
+    handleSearch(e.target.value)
 })
 
-
+function handleSearch(str) {
+    const macros = Object.values(MACROS);
+    console.log(macros.map(el => el.value))
+    
+    
+    let macroState = macros.filter(macro => {
+        return macro.value.toLowerCase().includes(str);
+    })
+    
+    populate(macroState)
+}
 
 //sender  #id, #tab, #url
