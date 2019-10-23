@@ -27,7 +27,7 @@ const MACROS = {
     },
     dir_users: {
         id: "dir_users",
-        value: "Rediret to Users Table:",
+        value: "Redirect to Users Table:",
         command: "cntl+shift+U"
     },
     open_workspace: {
@@ -42,16 +42,20 @@ const MACROS = {
     }
 }
 
+const MACRO_LIST = Object.values(MACROS);
+
 Object.freeze(MACROS)
+Object.freeze(MACRO_LIST)
+
 
 
 
 
 const state = {};
-state.current = Object.values(MACROS);
-state.previous = [];
 
-function populate(list, prevState) {
+function populate(list) {
+    depopulate()
+
     for (let item of list) {
         const { id, value, command } = item;
 
@@ -74,7 +78,7 @@ function populate(list, prevState) {
     }
 }
 
-populate(state.current, state.previous)
+populate(MACRO_LIST)
 
 function depopulate() {
     let containerHasChildren = keyContainer.children.length - 1;
@@ -87,25 +91,21 @@ function depopulate() {
     }
 }
 
-function searchFilter(str, toBeDeleted) {
-    const macros = Object.values(MACROS);    
+function searchFilter(str) {
+    const macros = MACRO_LIST;    
     
     let macroState = macros.filter(macro => {
         const isSubstring = macro.value.toLowerCase().includes(str);
-        return toBeDeleted ? !isSubstring : isSubstring;
+        return isSubstring;
     });
     
     return macroState
 }
 
 
-search.addEventListener('input', e => {
-    state.previous = Array.from(state.current);
-    // state.current = searchFilter(e.target.value, false);
-
-    depopulate()
- 
-
+search.addEventListener('input', ({ target }) => {
+    const filteredList = searchFilter(target.value);
+    populate(filteredList)
 })
 
 //sender  #id, #tab, #url
