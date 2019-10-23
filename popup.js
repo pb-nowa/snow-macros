@@ -76,45 +76,36 @@ function populate(list, prevState) {
 
 populate(state.current, state.previous)
 
-function depopulate(list) {
-    const ids = list.map(macro => macro.id);
+function depopulate() {
+    let containerHasChildren = keyContainer.children.length - 1;
 
-    for (let listElement of keyContainer.children) {
-        if (ids.includes(listElement.id)) {
-            keyContainer.removeChild(listElement);
-        }
+    while (containerHasChildren) {
+        let listElement = keyContainer.children[1]
+        keyContainer.removeChild(listElement);
+
+        containerHasChildren--;
     }
 }
 
-function searchFilter(str) {
+function searchFilter(str, toBeDeleted) {
     const macros = Object.values(MACROS);    
     
     let macroState = macros.filter(macro => {
         const isSubstring = macro.value.toLowerCase().includes(str);
-        return isSubstring;
+        return toBeDeleted ? !isSubstring : isSubstring;
     });
     
-    return macroState;
+    return macroState
 }
 
-function toBeDeleted(str) {
-    const macros = Object.values(MACROS);
-
-    let macroState = macros.filter(macro => {
-        const isNotSubstring = !macro.value.toLowerCase().includes(str);
-        return isNotSubstring;
-    });
-
-    return macroState;
-}
 
 search.addEventListener('input', e => {
     state.previous = Array.from(state.current);
-    state.current = searchFilter(e.target.value);
-    const deleteList = toBeDeleted(e.target.value);
+    // state.current = searchFilter(e.target.value, false);
 
-    depopulate(deleteList);
-    // populate(state.current, state.previous)
+    depopulate()
+ 
+
 })
 
 //sender  #id, #tab, #url
